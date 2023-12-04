@@ -82,15 +82,16 @@ class Convert_940:
                 orders[order_number]['OrderDetail']['OrderLine'].append(order_line)
 
                 # Convert each order dictionary to XML using xmltodict and write to separate XML files
-                xml_data = xmltodict.unparse({'Order': orders[order_number]}, short_empty_elements=True,
-                                             pretty=True)
-
-                with open("C:\\FTP\\GPAEDIProduction\\Integral\\In\\940_79_" + order_number + "_" +
-                          customer_name + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".xml"), "w") \
-                        as acknowledgement_file:
-                    acknowledgement_file.write(xml_data)
-                with open("C:\\FTP\\GPAEDIProduction\\TG1-SAG\\Out\\Archive\\940\\940_79_" + order_number + "_" +
-                          customer_name + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".xml"), "w") \
-                        as acknowledgement_file:
-                    acknowledgement_file.write(xml_data)
+                xml_data = xmltodict.unparse({'Order': orders[order_number]}, short_empty_elements=True, pretty=True)
+                if xml_data.find(order_number) == 0:
+                    pass
+                else:
+                    with open("C:\\FTP\\GPAEDIProduction\\Integral\\In\\940_79_" + order_number + "_" +
+                              customer_name + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".xml"), "w") \
+                            as acknowledgement_file:
+                        acknowledgement_file.write(xml_data)
+                    with open("C:\\FTP\\GPAEDIProduction\\TG1-SAG\\Out\\Archive\\940\\940_79_" + order_number + "_" +
+                              customer_name + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".xml"), "w") \
+                            as acknowledgement_file:
+                        acknowledgement_file.write(xml_data)
 
